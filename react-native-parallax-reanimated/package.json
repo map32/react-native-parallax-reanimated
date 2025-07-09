@@ -1,5 +1,5 @@
 {
-  "name": "react-native-parallax-reanimated",
+  "name": "@freepina/react-native-parallax-reanimated",
   "version": "0.1.1",
   "description": "dd",
   "main": "./lib/module/index.js",
