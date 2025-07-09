@@ -1,6 +1,6 @@
 {
   "name": "@freepina/react-native-parallax-reanimated",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "dd",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -59,7 +59,6 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  
   "devDependencies": {
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/compat": "^1.2.7",
