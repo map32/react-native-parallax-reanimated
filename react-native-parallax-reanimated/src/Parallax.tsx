@@ -66,6 +66,7 @@ const Parallax: FC<PropsWithChildren<CommonParallaxProps & oneOfSpeedAndTransfor
     }
 
     const handleLayout = (e: LayoutChangeEvent) => {
+        e
         tryUpdateLayout()
     }
 

@@ -2,10 +2,10 @@ import React, { createContext, useContext, useRef } from "react";
 import { findNodeHandle, type LayoutChangeEvent, type LayoutRectangle } from "react-native";
 import Animated, { type SharedValue, interpolate, useSharedValue, Extrapolation, useAnimatedRef, type AnimatedRef } from "react-native-reanimated";
 
-interface Element {
+/*interface Element {
     id: string;
     layout: LayoutRectangle;
-}
+}*/
 
 interface ParallaxControllerContextType {
     handleContainerLayout: (event: LayoutChangeEvent) => void;
@@ -91,7 +91,7 @@ export const ParallaxControllerProvider: React.FC<{children: React.ReactNode}> =
         }
     }
 
-    const calculateProgress = (element: Element, offset: number) => {
+    /*const calculateProgress = (element: Element, offset: number) => {
         "worklet";
         if (!containerAxisVertical.value) {
             return interpolate(
@@ -114,7 +114,7 @@ export const ParallaxControllerProvider: React.FC<{children: React.ReactNode}> =
                 Extrapolation.CLAMP
             );
         }
-    };
+    };*/
 
     const handleContainerLayout = (event: LayoutChangeEvent) => {
         containerLayout.value = event.nativeEvent.layout;
