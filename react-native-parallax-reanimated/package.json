@@ -43,7 +43,12 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "react-native-parallax-reanimated",
+    "reanimated",
+    "parallax",
+    "nativewind",
+    "tailwind"
   ],
   "repository": {
     "type": "git",
@@ -89,7 +94,9 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": ">=2.11.0"
+    "react-native-reanimated": ">=2.11.0",
+    "tailwindcss": "*",
+    "nativewind": "*"
   },
   "workspaces": [
     "example"

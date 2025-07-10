@@ -28,7 +28,7 @@ type TransformPair =
   | { skewY: [string, string] }
   | { opacity: [number, number] }
 
-type CombinedProps = {imageProps: Omit<ImageProps, 'source'>} & CommonParallaxProps & ViewProps & Pick<ImageProps, 'source'>;
+type CombinedProps = {imageProps?: Omit<ImageProps, 'source'>} & CommonParallaxProps & ViewProps & Pick<ImageProps, 'source'>;
 
 const styles = StyleSheet.create({
     container: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 })
 
 const ParallaxBanner: FC<PropsWithChildren<CombinedProps & oneOfSpeedAndTransform & ViewProps>> = (props) => {
-    const { children, style , speed, transform, targetElement, source, imageProps, ...rest } = props;
+    const { children, style , speed, transform, targetElement, source, imageProps = {}, ...rest } = props;
     const controller = useParallaxController();
     const localRef = useRef<View>(null);
     const { style: imageStyle, ...imageRest } = imageProps;

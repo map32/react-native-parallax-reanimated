@@ -1,6 +1,7 @@
 # @freepina/react-native-parallax-reanimated
 
 Various scroll-driven parallax effects for React Native with Reanimated. Inspired by [parallax-controller](https://www.npmjs.com/package/parallax-controller) and [react-scroll-parallax](https://www.npmjs.com/package/react-scroll-parallax)
+
 Also supports NativeWind if installed on your project
 ## Installation
 
@@ -49,6 +50,22 @@ then the parallax element spins and fades along the scroll progress of the regis
 ## Supported Transforms
 
 Same as react-scroll-parallax, only supports transform styling (translate, rotate, scale, etc) and opacity
+
+## NativeWind Support
+
+You need to modify the tailwind.config.js file in your project to include this package.
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    //... some other paths
+    './node_modules/@freepina/react-native-parallax-reanimated/src/*.{js,jsx,ts,tsx}'
+  ],
+  //... other config stuff
+}
+
+
+```
 
 ## Contributing
 
