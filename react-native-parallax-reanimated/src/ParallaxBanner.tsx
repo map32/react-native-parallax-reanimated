@@ -28,7 +28,7 @@ type TransformPair =
   | { skewY: [string, string] }
   | { opacity: [number, number] }
 
-type CombinedProps = {imageProps: ImageProps} & CommonParallaxProps;
+type CombinedProps = {imageProps: Omit<ImageProps, 'source'>} & CommonParallaxProps & ViewProps & Pick<ImageProps, 'source'>;
 
 const styles = StyleSheet.create({
     container: {
@@ -45,10 +45,11 @@ const styles = StyleSheet.create({
     }
 })
 
-const Parallax: FC<PropsWithChildren<CombinedProps & oneOfSpeedAndTransform & ViewProps>> = (props) => {
-    const { children, style , speed, transform, targetElement, imageProps, ...rest } = props;
+const ParallaxBanner: FC<PropsWithChildren<CombinedProps & oneOfSpeedAndTransform & ViewProps>> = (props) => {
+    const { children, style , speed, transform, targetElement, source, imageProps, ...rest } = props;
     const controller = useParallaxController();
     const localRef = useRef<View>(null);
+    const { style: imageStyle, ...imageRest } = imageProps;
     //this must be relative to the scrollview component
     const currentLayout = useSharedValue({ x: 0, y: 0, width: 0, height: 0 });
     const offset = useScrollViewOffset(controller.scrollRef.current !== null ? controller.scrollRef : null);
@@ -195,11 +196,11 @@ const Parallax: FC<PropsWithChildren<CombinedProps & oneOfSpeedAndTransform & Vi
          <View style={[styles.container, style]} ref={localRef} onLayout={handleLayout} {...rest}>
             {/*@ts-ignore*/}
             <Animated.View style={[styles.internal, expansionStyle, parallaxStyle]}  >
-                <Image {...imageProps} style={[styles.image]} />
+                <Image {...imageRest} source={source} style={[styles.image, imageStyle]} />
             </Animated.View>
             {children}
         </View>
 )}
 
 
-export default Parallax;
+export default ParallaxBanner;
