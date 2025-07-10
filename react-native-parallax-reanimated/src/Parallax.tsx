@@ -124,7 +124,7 @@ const Parallax: FC<PropsWithChildren<CommonParallaxProps & oneOfSpeedAndTransfor
 
     return (
         //@ts-ignore
-         <Animated.View className={className} style={[style, parallaxStyle]} ref={localRef} onLayout={handleLayout} {...rest}>
+         <Animated.View style={[style, parallaxStyle]} ref={localRef} onLayout={handleLayout} {...rest}>
             {children}
         </Animated.View>
 )}
