@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useRef } from "react";
 import { findNodeHandle, type LayoutChangeEvent, type LayoutRectangle } from "react-native";
-import Animated, { type SharedValue, interpolate, useSharedValue, Extrapolation, useAnimatedRef, type AnimatedRef } from "react-native-reanimated";
+import { type SharedValue, interpolate, useSharedValue, Extrapolation, useAnimatedRef, type AnimatedRef } from "react-native-reanimated";
 
 /*interface Element {
     id: string;
@@ -10,12 +10,12 @@ import Animated, { type SharedValue, interpolate, useSharedValue, Extrapolation,
 interface ParallaxControllerContextType {
     handleContainerLayout: (event: LayoutChangeEvent) => void;
     returnProgressValue: (layout: LayoutRectangle, offset: number) => number;
-    attachScroll: (node: Animated.ScrollView | null) => void;
+    attachScroll: (node: any) => void;
     handleTargetLayout: (event: LayoutChangeEvent) => void;
     registerTarget: (ref: React.RefObject<any>) => void;
     registerElementToTarget: (targetRef: React.RefObject<any>, elementRef: React.RefObject<any>, callback: Function) => void;
     unregisterElementToTarget: (targetRef: React.RefObject<any>, elementRef: React.RefObject<any>) => void;
-    scrollRef: AnimatedRef<Animated.ScrollView>;
+    scrollRef: AnimatedRef<any>;
     containerLayout: SharedValue<LayoutRectangle>;
     containerAxisVertical: SharedValue<boolean>;
 }
@@ -30,7 +30,7 @@ const ParallaxControllerContext = createContext<ParallaxControllerContextType | 
 export const ParallaxControllerProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
     const containerLayout = useSharedValue<LayoutRectangle>({ height: 0, width: 0, x: 0, y: 0 });
     const containerAxisVertical = useSharedValue(true);
-    const scrollViewRef = useAnimatedRef<Animated.ScrollView>();
+    const scrollViewRef = useAnimatedRef<any>();
     const map = useRef<TargetCallbackMap>({
     targetMap: new Map<number, number[]>(),
     elementMap: new Map<number, Function>()
@@ -120,13 +120,15 @@ export const ParallaxControllerProvider: React.FC<{children: React.ReactNode}> =
         containerLayout.value = event.nativeEvent.layout;
     };
 
-    const attachScroll = (node: Animated.ScrollView | null) => {
+    const attachScroll = (node: any, isHorizontal: boolean = false) => {
         if (!node) return;
+
+        
+        if (node.props) isHorizontal = node.props.horizontal ?? false;
         //@ts-ignore
-        const isHorizontal = node.__internalInstanceHandle.memoizedProps ?? false;
+        else if (node.__internalInstanceHandle && node.__internalInstanceHandle.memoizedProps) isHorizontal = node.__internalInstanceHandle.memoizedProps.horizontal;
         scrollViewRef(node);
-        if (isHorizontal) containerAxisVertical.value = true;
-        else containerAxisVertical.value = false;
+        if (isHorizontal) containerAxisVertical.value = false; else containerAxisVertical.value = true;
     }
 
 
@@ -142,7 +144,6 @@ export const ParallaxControllerProvider: React.FC<{children: React.ReactNode}> =
             scrollRef: scrollViewRef,
             containerLayout,
             containerAxisVertical
-            
         }}>
             {children}
         </ParallaxControllerContext.Provider>

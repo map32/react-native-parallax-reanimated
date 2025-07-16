@@ -94,9 +94,7 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": ">=2.11.0",
-    "tailwindcss": "*",
-    "nativewind": "*"
+    "react-native-reanimated": ">=2.11.0"
   },
   "workspaces": [
     "example"

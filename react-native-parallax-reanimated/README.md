@@ -47,6 +47,31 @@ const {attachScroll, handleContainerLayout, handleTargetLayout, registerTarget} 
 ```
 then the parallax element spins and fades along the scroll progress of the registered view component.
 
+Use with normal ScrollView
+```js
+const target = useRef<any>(null);
+const {attachScroll, handleContainerLayout, handleTargetLayout, registerTarget} = useParallaxController();
+<Parallax className='absolute top-2 right-2 bg-pink-600 size-32 z-10' transform={[{rotate: ['0deg', '90deg']}, {opacity: [1, 0]}]} targetElement={target}/>
+<ScrollView ref={attachScroll} onLayout={handleContainerLayout} >
+    <View className={`${isLarge ? 'h-96' : 'h-48'} bg-foreground`} ref={(node) => {target.current = node; registerTarget(target);}} onLayout={handleTargetLayout}/> //we use a callback function for ref prop, to assign the element to ref and to register it in the controller
+</ScrollView>
+
+```
+
+Use with [@shopify/flash-list](https://www.npmjs.com/package/@shopify/flash-list) - you need to extract the internal scrollview ref, not flashlist itself
+
+
+```js
+//recyclerlistview_unsafe is an undocumented function thing for internal recyclerlistview
+<FlashList
+            data={filteredData}
+            ref={node => attachScroll(node?.recyclerlistview_unsafe?.getNativeScrollRef())}
+
+            onLayout={handleContainerLayout}
+
+            />
+
+```
 ## Supported Transforms
 
 Same as react-scroll-parallax, only supports transform styling (translate, rotate, scale, etc) and opacity
